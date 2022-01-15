@@ -16,3 +16,8 @@ About do projeto!
 - **newbalanceDest** (SaldoFinalDestino): saldo da conta de destino após a transação;
 - **isFraud** (ÉFraude): flag que define se a transação é fraudulenta ou não. Nesta simulação o objetivo da fraude é assumir a conta do usuário, esvaziá-la transferindo para outra conta e então sacando o dinheiro.
 - **isFlaggedFraud** (SinalizadaComoFraude): automaticamente marcadas pelo banco como fraude por tentarem transferir mais de 200.000 em uma única transação.
+
+# Doubts
+
+- Dados simulados, mas compreendem de fato a realidade? Detalhes dessa simulação?
+- 
