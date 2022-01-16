@@ -11,6 +11,7 @@ seaborn = "*"
 scikit-learn = "*"
 missingno = "*"
 pyjanitor = "*"
+feature-engine = "==1.2.0"
 
 [dev-packages]
 black = "*"
