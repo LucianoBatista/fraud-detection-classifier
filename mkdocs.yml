@@ -1,4 +1,4 @@
-site_name: Models Documentation
+site_name: Fraud Detection Models
 theme:
   name: material
   font:
@@ -13,8 +13,14 @@ markdown_extensions:
   - pymdownx.keys
   - pymdownx.mark
   - pymdownx.tilde
+  - extra
+  - pymdownx.emoji:
+      emoji_index: !!python/name:materialx.emoji.twemoji
+      emoji_generator: !!python/name:materialx.emoji.to_svg
 plugins:
   - search
   - mermaid2
 nav:
   - Home: "index.md"
+  - Baseline: "baseline.md"
+  - Metrics: "metrics.md"
