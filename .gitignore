@@ -1,2 +1,4 @@
 /data/*.csv
 src/__pycache__/
+/analysis/classificacao_e_metricas_avaliacao.ipynb
+/analysis/classification-pre-aula.ipynb
