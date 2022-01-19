@@ -13,6 +13,8 @@ missingno = "*"
 pyjanitor = "*"
 feature-engine = "==1.2.0"
 pingouin = "==0.5.0"
+mkdocs-material = "*"
+mkdocs-mermaid2-plugin = "*"
 
 [dev-packages]
 black = "*"

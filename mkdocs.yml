@@ -1,0 +1,20 @@
+site_name: Models Documentation
+theme:
+  name: material
+  font:
+    text: Roboto
+markdown_extensions:
+  - meta
+  - attr_list
+  - md_in_html
+  - tables
+  - pymdownx.critic
+  - pymdownx.caret
+  - pymdownx.keys
+  - pymdownx.mark
+  - pymdownx.tilde
+plugins:
+  - search
+  - mermaid2
+nav:
+  - Home: "index.md"

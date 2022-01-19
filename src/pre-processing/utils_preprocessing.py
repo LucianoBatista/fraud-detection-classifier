@@ -7,6 +7,7 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import accuracy_score, roc_auc_score, precision_score, recall_score
 from sklearn.model_selection import train_test_split
 from sklearn import preprocessing
+from feature_engine.encoding import OneHotEncoder
 
 
 class PreProcessingPipe:
@@ -42,9 +43,9 @@ class PreProcessingPipe:
     def filter_type_classes(self, classes: list):
         self.dataset = self.dataset[~self.dataset["type"].isin(classes)]
 
-    def train_test_splitting(self, sample_test_size: float):
-        X_dataset = self.dataset.drop(["isFraud"], axis=1)
-        y_target = self.dataset[["isFraud"]]
+    def train_test_splitting(self, sample_test_size: float, to_drop: list):
+        X_dataset = self.dataset.drop(to_drop, axis=1)
+        y_target = self.dataset[to_drop]
 
         self.X_train, self.X_test, self.y_train, self.y_test = train_test_split(
             X_dataset,
@@ -63,6 +64,13 @@ class PreProcessingPipe:
 
         self.X_train["type"] = le.transform(self.X_train["type"])
         self.X_test["type"] = le.transform(self.X_test["type"])
+
+    def one_hot_encoder(self, cat_variables: list):
+        ohe = OneHotEncoder(variables=cat_variables)
+
+        ohe.fit(self.X_train)
+        self.X_train = ohe.transform(self.X_train)
+        self.X_test = ohe.transform(self.X_test)
 
     def scaling(self):
         scaler = preprocessing.MinMaxScaler(feature_range=(0, 1))
