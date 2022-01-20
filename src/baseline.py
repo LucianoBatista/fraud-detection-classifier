@@ -9,7 +9,7 @@ def main():
     model_file_name = "models/lrc_baseline.sav"
 
     # data
-    fraud_df = pd.read_csv("../../data/fraud_detection_dataset.csv")
+    fraud_df = pd.read_csv("data/fraud_detection_dataset.csv")
 
     # Pre-processing Pipeline
     pre_processing_pipe = PreProcessingPipe(dataset=fraud_df)
@@ -17,7 +17,7 @@ def main():
         columns=["isFlaggedFraud", "step", "nameOrig", "nameDest"]
     )
     pre_processing_pipe.filter_type_classes(classes=["PAYMENT", "CASH_IN", "DEBIT"])
-    pre_processing_pipe.train_test_splitting(sample_test_size=0.40)
+    pre_processing_pipe.train_test_splitting(sample_test_size=0.40, to_drop=["isFraud"])
     pre_processing_pipe.label_encoding()
     pre_processing_pipe.scaling()
 
