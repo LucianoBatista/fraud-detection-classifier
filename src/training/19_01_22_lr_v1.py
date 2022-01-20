@@ -1,7 +1,7 @@
 import pickle
 
 import pandas as pd
-from src.utils_preprocessing import PreProcessingPipe, Training
+from src.preprocessing.utils_preprocessing import PreProcessingPipe, Training
 
 model_file_name = "models/19_01_22_lr_v1.sav"
 
