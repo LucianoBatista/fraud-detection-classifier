@@ -3,20 +3,16 @@ import pickle
 import pandas as pd
 from src.utils_preprocessing import PreProcessingPipe, Training
 
-model_file_name = "models/lrc_baseline.sav"
+model_file_name = "models/19_01_22_lr_v1.sav"
 
 # data
-fraud_df = pd.read_csv("data/fraud_detection_dataset.csv")
-
+fraud_df = pd.read_csv("data/second-eda-output.csv")
+fraud_df["day_of_month"] = fraud_df["day_of_month"].astype(str)
 # Pre-processing Pipeline
+
 pre_processing_pipe = PreProcessingPipe(dataset=fraud_df)
-pre_processing_pipe.drop_columns(
-    columns=["isFlaggedFraud", "step", "nameOrig", "nameDest"]
-)
-pre_processing_pipe.filter_type_classes(classes=["PAYMENT", "CASH_IN", "DEBIT"])
-pre_processing_pipe.train_test_splitting(sample_test_size=0.40)
-pre_processing_pipe.label_encoding()
-pre_processing_pipe.scaling()
+pre_processing_pipe.train_test_splitting(sample_test_size=0.40, to_drop=["is_fraud"])
+pre_processing_pipe.one_hot_encoder(["day_of_month", "type"])
 
 # Training
 training_pipe = Training(

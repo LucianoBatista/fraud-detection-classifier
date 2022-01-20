@@ -1,6 +1,6 @@
-from pandas import DataFrame
 import matplotlib.pyplot as plt
 import seaborn as sns
+from pandas import DataFrame
 
 
 def bar_plot(

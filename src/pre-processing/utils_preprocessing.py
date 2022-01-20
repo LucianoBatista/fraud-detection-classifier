@@ -1,13 +1,14 @@
 from random import sample
 from threading import local
+
 import pandas as pd
-from pandas import DataFrame, Series
-from sklearn import datasets
-from sklearn.linear_model import LogisticRegression
-from sklearn.metrics import accuracy_score, roc_auc_score, precision_score, recall_score
-from sklearn.model_selection import train_test_split
-from sklearn import preprocessing
 from feature_engine.encoding import OneHotEncoder
+from pandas import DataFrame, Series
+from sklearn import datasets, preprocessing
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import (accuracy_score, precision_score, recall_score,
+                             roc_auc_score)
+from sklearn.model_selection import train_test_split
 
 
 class PreProcessingPipe:

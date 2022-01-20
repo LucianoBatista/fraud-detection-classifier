@@ -6,9 +6,10 @@ authors:
 
 These was the steps of my baseline using **Logistic Regression** and very simple transformations. The data was not balanced by any technique and the model was not tunned as well. 
 
+- **File name:** `lrc_baseline.sav`
+
 ## Pipeline
 
-<center>
 ```mermaid
 graph TD
   A[Raw data: fraud_detection_dataset.csv] --> B[Drop Columns];
@@ -20,5 +21,4 @@ graph TD
   G[Fit Logistic Regression] --> H[Predict];
   H[Predict] --> I[Calculate Metrics];
 ```
-</center>
 
