@@ -6,8 +6,13 @@ from feature_engine.encoding import OneHotEncoder
 from pandas import DataFrame, Series
 from sklearn import datasets, preprocessing
 from sklearn.linear_model import LogisticRegression
-from sklearn.metrics import (accuracy_score, precision_score, recall_score,
-                             roc_auc_score)
+from sklearn.metrics import (
+    accuracy_score,
+    confusion_matrix,
+    precision_score,
+    recall_score,
+    roc_auc_score,
+)
 from sklearn.model_selection import train_test_split
 
 
@@ -110,6 +115,10 @@ class Training:
     def predict_logistic_regression(self):
         self.y_pred_train = self.lrc.predict(self.X_train)
         self.y_pred_test = self.lrc.predict(self.X_test)
+
+    def get_confusion_matrix(self):
+        cf_test = confusion_matrix(self.y_test, self.y_pred_test)
+        return cf_test
 
     def calculate_metrics(self):
         # train
