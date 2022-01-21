@@ -23,5 +23,6 @@ plugins:
 nav:
   - Home: "index.md"
   - Baseline: "baseline.md"
-  - Model-v1: "model_v1.md"
+  - Model v1: "model_v1.md"
+  - Models (v2 and v3): "model_v2_v3.md"
   - Metrics: "metrics.md"
