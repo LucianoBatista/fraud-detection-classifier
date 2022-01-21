@@ -19,3 +19,8 @@ graph TD
   E[Fit Logistic Regression] --> F[Predict];
   F[Predict] --> G[Calculate Metrics];
 ```
+
+## Confusion Matrix
+
+![confusion-matrix](imgs/19_01_22_lr_v1.png)
+

@@ -7,21 +7,20 @@ from preprocessing.utils_preprocessing import PreProcessingPipe, Training
 
 
 def main():
-    model_file_name = "models/lrc_baseline.sav"
+    model_file_name = "models/21_01_22_lr_w_v1.sav"
 
     start = timeit.default_timer()
+
     # data
-    fraud_df = pd.read_csv("data/fraud_detection_dataset.csv")
+    fraud_df = pd.read_csv("data/second-eda-output.csv")
+    fraud_df["day_of_month"] = fraud_df["day_of_month"].astype(str)
 
     # Pre-processing Pipeline
     pre_processing_pipe = PreProcessingPipe(dataset=fraud_df)
-    pre_processing_pipe.drop_columns(
-        columns=["isFlaggedFraud", "step", "nameOrig", "nameDest"]
+    pre_processing_pipe.train_test_splitting(
+        sample_test_size=0.40, to_drop=["is_fraud"]
     )
-    pre_processing_pipe.filter_type_classes(classes=["PAYMENT", "CASH_IN", "DEBIT"])
-    pre_processing_pipe.train_test_splitting(sample_test_size=0.40, to_drop=["isFraud"])
-    pre_processing_pipe.label_encoding()
-    pre_processing_pipe.scaling()
+    pre_processing_pipe.one_hot_encoder(["day_of_month", "type"])
 
     # Training
     training_pipe = Training(
@@ -30,16 +29,15 @@ def main():
         y_train=pre_processing_pipe.y_train,
         y_test=pre_processing_pipe.y_test,
     )
-    training_pipe.fit_logistic_regression()
+    training_pipe.fit_logistic_regression(class_weight={0: 0.10, 1: 0.90})
     training_pipe.predict_logistic_regression()
-    confusion_matrix = training_pipe.get_confusion_matrix()
     metrics = training_pipe.calculate_metrics()
 
     pickle.dump(training_pipe.lrc, open(model_file_name, "wb"))
+    print(training_pipe.get_confusion_matrix())
     training_pipe.save_confusion_matrix(
-        classes=["Not Fraud", "Fraud"], name_to_save=model_file_name.split(".")[0]
+        classes=["Fraud", "Not Fraud"], name_to_save=model_file_name.split(".")[0]
     )
-    print(confusion_matrix)
     print(metrics)
 
     stop = timeit.default_timer()

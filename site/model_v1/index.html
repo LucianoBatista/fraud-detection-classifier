@@ -169,7 +169,7 @@
 <div class="mermaid">graph TD
   A[Transformed Data: second-eda-output.csv] --&gt; B[Type conversion];
   B[Type conversion] --&gt; C[Train Test Split];
-  C[Train Test Split] --&gt; D[One Hot Encoder];
+  C[Train Test Split] --&gt; D[One Hot Encoder on all categorical variables];
   D[One Hot Encoder] --&gt; E[Fit Logistic Regression];
   E[Fit Logistic Regression] --&gt; F[Predict];
   F[Predict] --&gt; G[Calculate Metrics];

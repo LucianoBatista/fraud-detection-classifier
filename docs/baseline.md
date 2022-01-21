@@ -22,3 +22,6 @@ graph TD
   H[Predict] --> I[Calculate Metrics];
 ```
 
+## Confusion Matrix
+
+![confusion-matrix](imgs/lrc_baseline.png)
