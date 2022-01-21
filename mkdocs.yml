@@ -26,3 +26,6 @@ nav:
   - Model v1: "model_v1.md"
   - Models (v2 and v3): "model_v2_v3.md"
   - Metrics: "metrics.md"
+extra_javascript:
+  - https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/tablesort.min.js
+  - javascripts/tablesort.js
