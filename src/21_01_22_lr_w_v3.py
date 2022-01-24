@@ -7,7 +7,7 @@ from preprocessing.utils_preprocessing import PreProcessingPipe, Training
 
 
 def main():
-    model_file_name = "models/21_01_22_lr_w_v1.sav"
+    model_file_name = "models/21_01_22_lr_w_v3.sav"
 
     start = timeit.default_timer()
 
@@ -29,17 +29,18 @@ def main():
         y_train=pre_processing_pipe.y_train,
         y_test=pre_processing_pipe.y_test,
     )
-    training_pipe.fit_logistic_regression(class_weight={0: 0.10, 1: 0.90}, max_iter=100)
-    training_pipe.predict_logistic_regression()
+    training_pipe.fit_random_forest()
+    training_pipe.predict_random_forest()
     metrics = training_pipe.calculate_metrics()
 
     pickle.dump(training_pipe.lrc, open(model_file_name, "wb"))
+
     print(training_pipe.get_confusion_matrix())
+
     training_pipe.save_confusion_matrix(
         classes=["Fraud", "Not Fraud"], name_to_save=model_file_name.split(".")[0]
     )
     print(metrics)
-
     stop = timeit.default_timer()
     print("Time: ", stop - start)
 

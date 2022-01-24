@@ -29,7 +29,7 @@ def main():
         y_train=pre_processing_pipe.y_train,
         y_test=pre_processing_pipe.y_test,
     )
-    training_pipe.fit_logistic_regression()
+    training_pipe.fit_logistic_regression(max_iter=100)
     training_pipe.predict_logistic_regression()
     metrics = training_pipe.calculate_metrics()
 

@@ -7,8 +7,12 @@ import numpy as np
 import pandas as pd
 import seaborn as sns
 from feature_engine.encoding import OneHotEncoder
+from imblearn.combine import SMOTEENN
+from imblearn.over_sampling import ADASYN, SMOTEN
+from imblearn.under_sampling import ClusterCentroids
 from pandas import DataFrame, Series
 from sklearn import datasets, preprocessing
+from sklearn.ensemble import RandomForestClassifier
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import (
     accuracy_score,
@@ -18,7 +22,7 @@ from sklearn.metrics import (
     recall_score,
     roc_auc_score,
 )
-from sklearn.model_selection import train_test_split
+from sklearn.model_selection import RandomizedSearchCV, train_test_split
 
 
 class PreProcessingPipe:
@@ -83,6 +87,20 @@ class PreProcessingPipe:
         self.X_train = ohe.transform(self.X_train)
         self.X_test = ohe.transform(self.X_test)
 
+    def oversampling_adasyn(
+        self,
+    ):
+        sm = ADASYN(random_state=10, sampling_strategy=0.30, n_jobs=-1)
+        self.X_train, self.y_train = sm.fit_resample(self.X_train, self.y_train)
+
+    def oversampling_smoteenn(self):
+        sme = SMOTEENN(random_state=42, sampling_strategy=0.1)
+        self.X_train, self.y_train = sme.fit_resample(self.X_train, self.y_train)
+
+    def undersampling_cluster_centroid(self):
+        cc = ClusterCentroids(random_state=10, sampling_strategy=0.35)
+        self.X_train, self.y_train = cc.fit_resample(self.X_train, self.y_train)
+
     def scaling(self):
         scaler = preprocessing.MinMaxScaler(feature_range=(0, 1))
 
@@ -107,21 +125,69 @@ class Training:
         self.y_train = y_train
         self.y_test = y_test
         self.lrc = None
+        self.rfc_random = None
+        self.rfc = None
         self.y_pred_train = None
         self.y_pred_test = None
         self.cf_test = None
 
-    def fit_logistic_regression(self, class_weight=None):
+    def fit_logistic_regression(self, max_iter: int, class_weight=None):
         # logistic regression classifier, default threshold is 0.5
         print("Training Logistic Regression", class_weight)
         if not class_weight:
-            self.lrc = LogisticRegression()
+            self.lrc = LogisticRegression(max_iter=max_iter)
         else:
             print(f"Setting class weight: {class_weight}")
-            self.lrc = LogisticRegression(class_weight=class_weight)
+            self.lrc = LogisticRegression(class_weight=class_weight, max_iter=max_iter)
 
         # fitting on training data
-        _ = self.lrc.fit(self.X_train, self.y_train)
+        _ = self.lrc.fit(self.X_train, self.y_train.values.ravel())
+
+    def fit_random_forest_cv_search(self):
+        # Number of trees in random forest
+        n_estimators = [int(x) for x in np.linspace(start=100, stop=2000, num=10)]
+        # Number of features to consider at every split
+        # Maximum number of levels in tree
+        max_depth = [int(x) for x in np.linspace(10, 110, num=11)]
+        max_depth.append(None)
+        # Minimum number of samples required to split a node
+        min_samples_split = [2, 5, 10]
+        # Minimum number of samples required at each leaf node
+        min_samples_leaf = [1, 2, 4]
+        # Method of selecting samples for training each tree
+        # Create the random grid
+        random_grid = {
+            "n_estimators": n_estimators,
+            "max_depth": max_depth,
+            "min_samples_split": min_samples_split,
+            "min_samples_leaf": min_samples_leaf,
+        }
+
+        rfc = RandomForestClassifier()
+        self.rfc_random = RandomizedSearchCV(
+            estimator=rfc,
+            param_distributions=random_grid,
+            n_iter=50,
+            cv=3,
+            verbose=2,
+            random_state=42,
+            n_jobs=6,
+        )
+        _ = self.rfc_random.fit(self.X_train, self.y_train["is_fraud"])
+
+    def fit_random_forest(self):
+        # chute
+        self.rfc = RandomForestClassifier(n_jobs=-1)
+        self.rfc.fit(self.X_train, self.y_train["is_fraud"])
+
+    def predict_random_forest(self):
+        self.y_pred_train = self.rfc.predict(self.X_train)
+        self.y_pred_test = self.rfc.predict(self.X_test)
+
+    def predict_random_forest_cv_search(self):
+        model = self.rfc_random.best_estimator_
+        self.y_pred_train = model.predict(self.X_train)
+        self.y_pred_test = model.predict(self.X_test)
 
     def predict_logistic_regression(self):
         self.y_pred_train = self.lrc.predict(self.X_train)
@@ -133,14 +199,14 @@ class Training:
 
     def calculate_metrics(self):
         # train
-        accuracy_training = (accuracy_score(self.y_train, self.y_pred_train),)
+        accuracy_training = accuracy_score(self.y_train, self.y_pred_train)
         precision_training = precision_score(self.y_train, self.y_pred_train)
         recall_training = recall_score(self.y_train, self.y_pred_train)
         auc_training = roc_auc_score(self.y_train, self.y_pred_train)
         f1_training = f1_score(self.y_train, self.y_pred_train)
 
         # test
-        accuracy_testing = (accuracy_score(self.y_test, self.y_pred_test),)
+        accuracy_testing = accuracy_score(self.y_test, self.y_pred_test)
         precision_testing = precision_score(self.y_test, self.y_pred_test)
         recall_testing = recall_score(self.y_test, self.y_pred_test)
         auc_testing = roc_auc_score(self.y_test, self.y_pred_test)

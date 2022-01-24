@@ -20,4 +20,5 @@ About do projeto!
 # Doubts
 
 - Dados simulados, mas compreendem de fato a realidade? Detalhes dessa simulação?
-- 
+- SMOTEENN 1 dia rodando e nada!
+
