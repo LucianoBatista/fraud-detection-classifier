@@ -181,8 +181,10 @@ class Training:
         self.rfc.fit(self.X_train, self.y_train["is_fraud"])
 
     def predict_random_forest(self):
-        self.y_pred_train = self.rfc.predict(self.X_train)
-        self.y_pred_test = self.rfc.predict(self.X_test)
+        predict_proba_train = self.rfc.predict_proba(self.X_train)
+        predict_proba_test = self.rfc.predict_proba(self.X_test)
+        self.y_pred_train = (predict_proba_train[:, 1] >= 0.5).astype("int")
+        self.y_pred_test = (predict_proba_test[:, 1] >= 0.5).astype("int")
 
     def predict_random_forest_cv_search(self):
         model = self.rfc_random.best_estimator_

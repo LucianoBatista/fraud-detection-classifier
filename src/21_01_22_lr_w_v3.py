@@ -33,7 +33,7 @@ def main():
     training_pipe.predict_random_forest()
     metrics = training_pipe.calculate_metrics()
 
-    pickle.dump(training_pipe.lrc, open(model_file_name, "wb"))
+    pickle.dump(training_pipe.rfc, open(model_file_name, "wb"))
 
     print(training_pipe.get_confusion_matrix())
 
