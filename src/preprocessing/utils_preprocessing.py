@@ -1,3 +1,4 @@
+import pickle
 from distutils.log import Log
 from random import sample
 from threading import local
@@ -80,12 +81,15 @@ class PreProcessingPipe:
         self.X_train["type"] = le.transform(self.X_train["type"])
         self.X_test["type"] = le.transform(self.X_test["type"])
 
-    def one_hot_encoder(self, cat_variables: list):
+    def one_hot_encoder(self, cat_variables: list, model_name: str):
         ohe = OneHotEncoder(variables=cat_variables)
 
         ohe.fit(self.X_train)
         self.X_train = ohe.transform(self.X_train)
         self.X_test = ohe.transform(self.X_test)
+
+        with open(f"models/encoder_{model_name}", "wb") as f:
+            pickle.dump(ohe, f)
 
     def oversampling_adasyn(
         self,

@@ -20,7 +20,10 @@ def main():
     pre_processing_pipe.train_test_splitting(
         sample_test_size=0.40, to_drop=["is_fraud"]
     )
-    pre_processing_pipe.one_hot_encoder(["day_of_month", "type"])
+    pre_processing_pipe.one_hot_encoder(
+        ["day_of_month", "type"],
+        model_name=model_file_name.split("/")[-1].split(".")[0],
+    )
 
     # Training
     training_pipe = Training(
