@@ -1,0 +1,623 @@
+
+<!DOCTYPE html>
+
+<html class="no-js" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<link href="../assets/images/favicon.png" rel="icon"/>
+<meta content="mkdocs-1.2.3, mkdocs-material-8.1.7" name="generator"/>
+<title>Exploratory Data Analysis - Fraud Detection Models</title>
+<link href="../assets/stylesheets/main.cd566b2a.min.css" rel="stylesheet"/>
+<link href="../assets/stylesheets/palette.e6a45f82.min.css" rel="stylesheet"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7C&amp;display=fallback" rel="stylesheet"/>
+<style>:root{--md-text-font:"Roboto";--md-code-font:""}</style>
+<script>__md_scope=new URL("..",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+</head>
+<body data-md-color-accent="none" data-md-color-primary="none" data-md-color-scheme="" dir="ltr">
+<input autocomplete="off" class="md-toggle" data-md-toggle="drawer" id="__drawer" type="checkbox"/>
+<input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
+<label class="md-overlay" for="__drawer"></label>
+<div data-md-component="skip">
+<a class="md-skip" href="#fraud-detection-eda">
+          Skip to content
+        </a>
+</div>
+<div data-md-component="announce">
+</div>
+<header class="md-header" data-md-component="header">
+<nav aria-label="Header" class="md-header__inner md-grid">
+<a aria-label="Fraud Detection Models" class="md-header__button md-logo" data-md-component="logo" href=".." title="Fraud Detection Models">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"></path></svg>
+</a>
+<label class="md-header__button md-icon" for="__drawer">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"></path></svg>
+</label>
+<div class="md-header__title" data-md-component="header-title">
+<div class="md-header__ellipsis">
+<div class="md-header__topic">
+<span class="md-ellipsis">
+            Fraud Detection Models
+          </span>
+</div>
+<div class="md-header__topic" data-md-component="header-topic">
+<span class="md-ellipsis">
+            
+              Exploratory Data Analysis
+            
+          </span>
+</div>
+</div>
+</div>
+<label class="md-header__button md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"></path></svg>
+</label>
+<div class="md-search" data-md-component="search" role="dialog">
+<label class="md-search__overlay" for="__search"></label>
+<div class="md-search__inner" role="search">
+<form class="md-search__form" name="search">
+<input aria-label="Search" autocapitalize="off" autocomplete="off" autocorrect="off" class="md-search__input" data-md-component="search-query" name="query" placeholder="Search" required="" spellcheck="false" type="text"/>
+<label class="md-search__icon md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"></path></svg>
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"></path></svg>
+</label>
+<nav aria-label="Search" class="md-search__options">
+<button aria-label="Clear" class="md-search__icon md-icon" tabindex="-1" type="reset">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"></path></svg>
+</button>
+</nav>
+</form>
+<div class="md-search__output">
+<div class="md-search__scrollwrap" data-md-scrollfix="">
+<div class="md-search-result" data-md-component="search-result">
+<div class="md-search-result__meta">
+            Initializing search
+          </div>
+<ol class="md-search-result__list"></ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+</nav>
+</header>
+<div class="md-container" data-md-component="container">
+<main class="md-main" data-md-component="main">
+<div class="md-main__inner md-grid">
+<div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Navigation" class="md-nav md-nav--primary" data-md-level="0">
+<label class="md-nav__title" for="__drawer">
+<a aria-label="Fraud Detection Models" class="md-nav__button md-logo" data-md-component="logo" href=".." title="Fraud Detection Models">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"></path></svg>
+</a>
+    Fraud Detection Models
+  </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="..">
+        Home
+      </a>
+</li>
+<li class="md-nav__item md-nav__item--active">
+<input class="md-nav__toggle md-toggle" data-md-toggle="toc" id="__toc" type="checkbox"/>
+<label class="md-nav__link md-nav__link--active" for="__toc">
+          Exploratory Data Analysis
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<a class="md-nav__link md-nav__link--active" href="./">
+        Exploratory Data Analysis
+      </a>
+<nav aria-label="Table of contents" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#fraud-detection-eda">
+    Fraud Detection EDA
+  </a>
+<nav aria-label="Fraud Detection EDA" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#libraries">
+    Libraries
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#our-dataset">
+    Our Dataset
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#how-unbalanced-is-our-data">
+    How unbalanced is our data?
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#how-is_fraud-is-distributed-on-our-categorical-variable-type">
+    How is_fraud is distributed on our categorical variable type?
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#what-about-the-variable-is_flagged_fraud">
+    What about the variable is_flagged_fraud?
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#lets-look-at-the-amount-variable">
+    Let's look at the amount variable
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#how-the-hour-of-the-transaction-is-related-to-is_fraud">
+    How the hour of the transaction is related to is_fraud?
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#the-final-dataset">
+    The Final Dataset
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" id="__nav_3" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3">
+          Models
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="Models" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_3">
+<span class="md-nav__icon md-icon"></span>
+          Models
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../baseline/">
+        Baseline
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../model_v1/">
+        Model v1
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../model_v2_v3/">
+        Models (v2 and v3)
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../model_v4/">
+        Model v4
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../metrics/">
+        Metrics
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../api.md">
+        API
+      </a>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Table of contents" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#fraud-detection-eda">
+    Fraud Detection EDA
+  </a>
+<nav aria-label="Fraud Detection EDA" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#libraries">
+    Libraries
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#our-dataset">
+    Our Dataset
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#how-unbalanced-is-our-data">
+    How unbalanced is our data?
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#how-is_fraud-is-distributed-on-our-categorical-variable-type">
+    How is_fraud is distributed on our categorical variable type?
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#what-about-the-variable-is_flagged_fraud">
+    What about the variable is_flagged_fraud?
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#lets-look-at-the-amount-variable">
+    Let's look at the amount variable
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#how-the-hour-of-the-transaction-is-related-to-is_fraud">
+    How the hour of the transaction is related to is_fraud?
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#the-final-dataset">
+    The Final Dataset
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-content" data-md-component="content">
+<article class="md-content__inner md-typeset">
+<h1>Exploratory Data Analysis</h1>
+<h2 id="fraud-detection-eda">Fraud Detection EDA</h2>
+<p><img alt="img-png" src="../imgs/fraud.jpg"/></p>
+<blockquote>
+<p>A fraudulent action here is the act of invade some user bank account, and empty it by transferring it to another account and them withdrawing the money.</p>
+</blockquote>
+<h3 id="libraries">Libraries</h3>
+<div class="highlight"><pre><span></span><code><a href="#__codelineno-0-1" id="__codelineno-0-1" name="__codelineno-0-1"></a><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<a href="#__codelineno-0-2" id="__codelineno-0-2" name="__codelineno-0-2"></a><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<a href="#__codelineno-0-3" id="__codelineno-0-3" name="__codelineno-0-3"></a>
+<a href="#__codelineno-0-4" id="__codelineno-0-4" name="__codelineno-0-4"></a><span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<a href="#__codelineno-0-5" id="__codelineno-0-5" name="__codelineno-0-5"></a><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<a href="#__codelineno-0-6" id="__codelineno-0-6" name="__codelineno-0-6"></a><span class="kn">import</span> <span class="nn">matplotlib</span> <span class="k">as</span> <span class="nn">mpl</span>
+<a href="#__codelineno-0-7" id="__codelineno-0-7" name="__codelineno-0-7"></a>
+<a href="#__codelineno-0-8" id="__codelineno-0-8" name="__codelineno-0-8"></a><span class="kn">import</span> <span class="nn">pingouin</span> <span class="k">as</span> <span class="nn">pg</span>
+<a href="#__codelineno-0-9" id="__codelineno-0-9" name="__codelineno-0-9"></a><span class="kn">import</span> <span class="nn">math</span> 
+<a href="#__codelineno-0-10" id="__codelineno-0-10" name="__codelineno-0-10"></a>
+<a href="#__codelineno-0-11" id="__codelineno-0-11" name="__codelineno-0-11"></a><span class="kn">import</span> <span class="nn">warnings</span>
+<a href="#__codelineno-0-12" id="__codelineno-0-12" name="__codelineno-0-12"></a>
+<a href="#__codelineno-0-13" id="__codelineno-0-13" name="__codelineno-0-13"></a><span class="kn">from</span> <span class="nn">src.plotting.plotting</span> <span class="kn">import</span> <span class="n">bar_plot</span><span class="p">,</span> <span class="n">ecdf_plot</span><span class="p">,</span> <span class="n">boxplot_plot</span>
+<a href="#__codelineno-0-14" id="__codelineno-0-14" name="__codelineno-0-14"></a>
+<a href="#__codelineno-0-15" id="__codelineno-0-15" name="__codelineno-0-15"></a><span class="c1"># supressing warnings</span>
+<a href="#__codelineno-0-16" id="__codelineno-0-16" name="__codelineno-0-16"></a><span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">"ignore"</span><span class="p">)</span>
+<a href="#__codelineno-0-17" id="__codelineno-0-17" name="__codelineno-0-17"></a>
+<a href="#__codelineno-0-18" id="__codelineno-0-18" name="__codelineno-0-18"></a><span class="n">mpl</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s2">"figure.dpi"</span><span class="p">]</span> <span class="o">=</span> <span class="mi">120</span>
+<a href="#__codelineno-0-19" id="__codelineno-0-19" name="__codelineno-0-19"></a><span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s2">"whitegrid"</span><span class="p">)</span>
+<a href="#__codelineno-0-20" id="__codelineno-0-20" name="__codelineno-0-20"></a><span class="n">sns</span><span class="o">.</span><span class="n">set_palette</span><span class="p">(</span><span class="s2">"deep"</span><span class="p">)</span>
+</code></pre></div>
+<h3 id="our-dataset">Our Dataset</h3>
+<div class="highlight"><pre><span></span><code><a href="#__codelineno-1-1" id="__codelineno-1-1" name="__codelineno-1-1"></a><span class="c1"># data</span>
+<a href="#__codelineno-1-2" id="__codelineno-1-2" name="__codelineno-1-2"></a><span class="n">fraud_detect_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">"data/fraud_detection_dataset.csv"</span><span class="p">)</span>
+<a href="#__codelineno-1-3" id="__codelineno-1-3" name="__codelineno-1-3"></a><span class="n">fraud_detect_df</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span>
+<a href="#__codelineno-1-4" id="__codelineno-1-4" name="__codelineno-1-4"></a>    <span class="s2">"step"</span><span class="p">,</span>
+<a href="#__codelineno-1-5" id="__codelineno-1-5" name="__codelineno-1-5"></a>    <span class="s2">"type"</span><span class="p">,</span>
+<a href="#__codelineno-1-6" id="__codelineno-1-6" name="__codelineno-1-6"></a>    <span class="s2">"amount"</span><span class="p">,</span>
+<a href="#__codelineno-1-7" id="__codelineno-1-7" name="__codelineno-1-7"></a>    <span class="s2">"name_orig"</span><span class="p">,</span>
+<a href="#__codelineno-1-8" id="__codelineno-1-8" name="__codelineno-1-8"></a>    <span class="s2">"old_balance_orig"</span><span class="p">,</span>
+<a href="#__codelineno-1-9" id="__codelineno-1-9" name="__codelineno-1-9"></a>    <span class="s2">"new_balance_orig"</span><span class="p">,</span>
+<a href="#__codelineno-1-10" id="__codelineno-1-10" name="__codelineno-1-10"></a>    <span class="s2">"name_dest"</span><span class="p">,</span>
+<a href="#__codelineno-1-11" id="__codelineno-1-11" name="__codelineno-1-11"></a>    <span class="s2">"old_balance_dest"</span><span class="p">,</span>
+<a href="#__codelineno-1-12" id="__codelineno-1-12" name="__codelineno-1-12"></a>    <span class="s2">"new_balance_dest"</span><span class="p">,</span>
+<a href="#__codelineno-1-13" id="__codelineno-1-13" name="__codelineno-1-13"></a>    <span class="s2">"is_fraud"</span><span class="p">,</span>
+<a href="#__codelineno-1-14" id="__codelineno-1-14" name="__codelineno-1-14"></a>    <span class="s2">"is_flagged_fraud"</span><span class="p">,</span>
+<a href="#__codelineno-1-15" id="__codelineno-1-15" name="__codelineno-1-15"></a><span class="p">]</span>
+<a href="#__codelineno-1-16" id="__codelineno-1-16" name="__codelineno-1-16"></a>
+<a href="#__codelineno-1-17" id="__codelineno-1-17" name="__codelineno-1-17"></a><span class="c1"># change the order, last columns with the target</span>
+<a href="#__codelineno-1-18" id="__codelineno-1-18" name="__codelineno-1-18"></a><span class="n">fraud_detect_df</span> <span class="o">=</span> <span class="n">fraud_detect_df</span><span class="p">[</span>
+<a href="#__codelineno-1-19" id="__codelineno-1-19" name="__codelineno-1-19"></a>    <span class="p">[</span>
+<a href="#__codelineno-1-20" id="__codelineno-1-20" name="__codelineno-1-20"></a>        <span class="s2">"step"</span><span class="p">,</span>
+<a href="#__codelineno-1-21" id="__codelineno-1-21" name="__codelineno-1-21"></a>        <span class="s2">"type"</span><span class="p">,</span>
+<a href="#__codelineno-1-22" id="__codelineno-1-22" name="__codelineno-1-22"></a>        <span class="s2">"amount"</span><span class="p">,</span>
+<a href="#__codelineno-1-23" id="__codelineno-1-23" name="__codelineno-1-23"></a>        <span class="s2">"name_orig"</span><span class="p">,</span>
+<a href="#__codelineno-1-24" id="__codelineno-1-24" name="__codelineno-1-24"></a>        <span class="s2">"old_balance_orig"</span><span class="p">,</span>
+<a href="#__codelineno-1-25" id="__codelineno-1-25" name="__codelineno-1-25"></a>        <span class="s2">"new_balance_orig"</span><span class="p">,</span>
+<a href="#__codelineno-1-26" id="__codelineno-1-26" name="__codelineno-1-26"></a>        <span class="s2">"name_dest"</span><span class="p">,</span>
+<a href="#__codelineno-1-27" id="__codelineno-1-27" name="__codelineno-1-27"></a>        <span class="s2">"old_balance_dest"</span><span class="p">,</span>
+<a href="#__codelineno-1-28" id="__codelineno-1-28" name="__codelineno-1-28"></a>        <span class="s2">"new_balance_dest"</span><span class="p">,</span>
+<a href="#__codelineno-1-29" id="__codelineno-1-29" name="__codelineno-1-29"></a>        <span class="s2">"is_flagged_fraud"</span><span class="p">,</span>
+<a href="#__codelineno-1-30" id="__codelineno-1-30" name="__codelineno-1-30"></a>        <span class="s2">"is_fraud"</span><span class="p">,</span>
+<a href="#__codelineno-1-31" id="__codelineno-1-31" name="__codelineno-1-31"></a>    <span class="p">]</span>
+<a href="#__codelineno-1-32" id="__codelineno-1-32" name="__codelineno-1-32"></a><span class="p">]</span>
+</code></pre></div>
+<p><img alt="df-head" src="../imgs/df-head.png"/></p>
+<h3 id="how-unbalanced-is-our-data">How unbalanced is our data?</h3>
+<p><div class="highlight"><pre><span></span><code><a href="#__codelineno-2-1" id="__codelineno-2-1" name="__codelineno-2-1"></a><span class="n">balance_df</span> <span class="o">=</span> <span class="n">fraud_detect_df</span><span class="p">[</span><span class="s2">"is_fraud"</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">(</span><span class="n">normalize</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+<a href="#__codelineno-2-2" id="__codelineno-2-2" name="__codelineno-2-2"></a><span class="n">balance_df</span><span class="p">[</span><span class="s2">"index"</span><span class="p">]</span> <span class="o">=</span> <span class="n">balance_df</span><span class="p">[</span><span class="s2">"index"</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">({</span><span class="mi">0</span><span class="p">:</span> <span class="s2">"not fraud"</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span> <span class="s2">"fraud"</span><span class="p">})</span>
+<a href="#__codelineno-2-3" id="__codelineno-2-3" name="__codelineno-2-3"></a><span class="n">balance_df</span><span class="p">[</span><span class="s2">"is_fraud"</span><span class="p">]</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">balance_df</span><span class="p">[</span><span class="s2">"is_fraud"</span><span class="p">],</span> <span class="mi">4</span><span class="p">)</span>
+<a href="#__codelineno-2-4" id="__codelineno-2-4" name="__codelineno-2-4"></a>
+<a href="#__codelineno-2-5" id="__codelineno-2-5" name="__codelineno-2-5"></a><span class="c1"># plot</span>
+<a href="#__codelineno-2-6" id="__codelineno-2-6" name="__codelineno-2-6"></a><span class="n">bar_plot</span><span class="p">(</span><span class="n">balance_df</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s2">"is_fraud"</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">"index"</span><span class="p">,</span> <span class="n">xlabel</span><span class="o">=</span><span class="s2">"Proportion"</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s2">""</span><span class="p">)</span>
+</code></pre></div>
+<img alt="imb-data" src="../imgs/imb-data.png"/></p>
+<h3 id="how-is_fraud-is-distributed-on-our-categorical-variable-type">How <code>is_fraud</code> is distributed on our categorical variable <code>type</code>?</h3>
+<div class="highlight"><pre><span></span><code><a href="#__codelineno-3-1" id="__codelineno-3-1" name="__codelineno-3-1"></a><span class="n">type_by_fraud_df</span> <span class="o">=</span> <span class="n">fraud_detect_df</span><span class="p">[[</span><span class="s2">"type"</span><span class="p">,</span> <span class="s2">"is_fraud"</span><span class="p">]]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">(</span><span class="n">normalize</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+<a href="#__codelineno-3-2" id="__codelineno-3-2" name="__codelineno-3-2"></a><span class="n">type_by_fraud_df</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"type"</span><span class="p">,</span> <span class="s2">"is_fraud"</span><span class="p">,</span> <span class="s2">"prop"</span><span class="p">]</span>
+<a href="#__codelineno-3-3" id="__codelineno-3-3" name="__codelineno-3-3"></a><span class="n">type_by_fraud_df</span><span class="p">[</span><span class="s2">"is_fraud"</span><span class="p">]</span> <span class="o">=</span> <span class="n">type_by_fraud_df</span><span class="p">[</span><span class="s2">"is_fraud"</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">({</span><span class="mi">0</span><span class="p">:</span> <span class="s2">"not fraud"</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span> <span class="s2">"fraud"</span><span class="p">})</span>
+<a href="#__codelineno-3-4" id="__codelineno-3-4" name="__codelineno-3-4"></a><span class="n">type_by_fraud_df</span><span class="p">[</span><span class="s2">"prop"</span><span class="p">]</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">type_by_fraud_df</span><span class="p">[</span><span class="s2">"prop"</span><span class="p">],</span> <span class="mi">4</span><span class="p">)</span>
+<a href="#__codelineno-3-5" id="__codelineno-3-5" name="__codelineno-3-5"></a>
+<a href="#__codelineno-3-6" id="__codelineno-3-6" name="__codelineno-3-6"></a><span class="n">bar_plot</span><span class="p">(</span><span class="n">type_by_fraud_df</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s2">"prop"</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">"type"</span><span class="p">,</span> <span class="n">xlabel</span><span class="o">=</span><span class="s2">"Proportion"</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s2">""</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s2">"is_fraud"</span><span class="p">)</span>
+</code></pre></div>
+<p><img alt="fraud-type" src="../imgs/fraud-type.png"/></p>
+<p>Let's perform a Chi2 test, and check if the correlation with our target (<code>is_fraud</code>) is significant (our alternative hypothesis).</p>
+<div class="highlight"><pre><span></span><code><a href="#__codelineno-4-1" id="__codelineno-4-1" name="__codelineno-4-1"></a><span class="n">observed</span><span class="p">,</span> <span class="n">expected</span><span class="p">,</span> <span class="n">stats</span> <span class="o">=</span> <span class="n">pg</span><span class="o">.</span><span class="n">chi2_independence</span><span class="p">(</span><span class="n">fraud_detect_df</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s2">"type"</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">"is_fraud"</span><span class="p">)</span>
+<a href="#__codelineno-4-2" id="__codelineno-4-2" name="__codelineno-4-2"></a><span class="n">stats</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+</code></pre></div>
+<p><img alt="pval" src="../imgs/p-val.png"/></p>
+<p>As wee see, this is a nice variable to add to our model, very low p-values on different tests.</p>
+<h3 id="what-about-the-variable-is_flagged_fraud">What about the variable <code>is_flagged_fraud</code>?</h3>
+<div class="highlight"><pre><span></span><code><a href="#__codelineno-5-1" id="__codelineno-5-1" name="__codelineno-5-1"></a><span class="n">is_ff_df</span> <span class="o">=</span> <span class="n">fraud_detect_df</span><span class="p">[</span><span class="s2">"is_flagged_fraud"</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+<a href="#__codelineno-5-2" id="__codelineno-5-2" name="__codelineno-5-2"></a><span class="n">is_ff_df</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"is_fraud"</span><span class="p">,</span> <span class="s2">"count"</span><span class="p">]</span>
+<a href="#__codelineno-5-3" id="__codelineno-5-3" name="__codelineno-5-3"></a>
+<a href="#__codelineno-5-4" id="__codelineno-5-4" name="__codelineno-5-4"></a><span class="n">fraud_detect_df</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s2">"is_flagged_fraud"</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th align="center">is_fraud</th>
+<th align="center">count</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">0</td>
+<td align="center">6.362.604</td>
+</tr>
+<tr>
+<td align="center">1</td>
+<td align="center">16</td>
+</tr>
+</tbody>
+</table>
+<p>This variable is not representative, for now wi'll just drop it.</p>
+<h3 id="lets-look-at-the-amount-variable">Let's look at the amount variable</h3>
+<p>We'll be using the ECDF plot here because the size of the dataset is too large, and because of the scale, is really difficult to see, in a meaningful way, the distribution.</p>
+<p>The ECDF plot will bring on y-axis the percentiles, and x-axis your values for the numeric variable.</p>
+<div class="highlight"><pre><span></span><code><a href="#__codelineno-6-1" id="__codelineno-6-1" name="__codelineno-6-1"></a><span class="n">ecdf_plot</span><span class="p">(</span>
+<a href="#__codelineno-6-2" id="__codelineno-6-2" name="__codelineno-6-2"></a>    <span class="n">data</span><span class="o">=</span><span class="n">fraud_detect_df</span><span class="p">,</span> 
+<a href="#__codelineno-6-3" id="__codelineno-6-3" name="__codelineno-6-3"></a>    <span class="n">x</span><span class="o">=</span><span class="s2">"amount"</span><span class="p">,</span> 
+<a href="#__codelineno-6-4" id="__codelineno-6-4" name="__codelineno-6-4"></a>    <span class="n">xlabel</span><span class="o">=</span><span class="s2">"Amount"</span><span class="p">,</span> 
+<a href="#__codelineno-6-5" id="__codelineno-6-5" name="__codelineno-6-5"></a>    <span class="n">ylabel</span><span class="o">=</span><span class="s2">"Density"</span><span class="p">,</span> 
+<a href="#__codelineno-6-6" id="__codelineno-6-6" name="__codelineno-6-6"></a>    <span class="n">hue</span><span class="o">=</span><span class="s2">"is_fraud"</span>
+<a href="#__codelineno-6-7" id="__codelineno-6-7" name="__codelineno-6-7"></a><span class="p">)</span>
+</code></pre></div>
+<p><img alt="ecdf-plot" src="../imgs/amount.png"/></p>
+<p>Both of the distributions are skewed to the left, and in 60% of the time will be very difficult to distinguish if is fraud or not, based on those values. So, lets bring those variables to a more normal distribution applying the log transformation.</p>
+<div class="highlight"><pre><span></span><code><a href="#__codelineno-7-1" id="__codelineno-7-1" name="__codelineno-7-1"></a><span class="c1"># applying log transformation on this variable</span>
+<a href="#__codelineno-7-2" id="__codelineno-7-2" name="__codelineno-7-2"></a><span class="k">def</span> <span class="nf">log_transform</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+<a href="#__codelineno-7-3" id="__codelineno-7-3" name="__codelineno-7-3"></a>    <span class="n">log_transformed</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+<a href="#__codelineno-7-4" id="__codelineno-7-4" name="__codelineno-7-4"></a>    <span class="k">return</span> <span class="n">log_transformed</span>
+<a href="#__codelineno-7-5" id="__codelineno-7-5" name="__codelineno-7-5"></a>
+<a href="#__codelineno-7-6" id="__codelineno-7-6" name="__codelineno-7-6"></a><span class="n">fraud_detect_df</span><span class="p">[</span><span class="s2">"amount_log"</span><span class="p">]</span> <span class="o">=</span> <span class="n">fraud_detect_df</span><span class="p">[</span><span class="s2">"amount"</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">log_transform</span><span class="p">)</span>
+<a href="#__codelineno-7-7" id="__codelineno-7-7" name="__codelineno-7-7"></a><span class="n">fraud_detect_df</span>
+<a href="#__codelineno-7-8" id="__codelineno-7-8" name="__codelineno-7-8"></a><span class="c1"># let's see for the amount after the transformation</span>
+<a href="#__codelineno-7-9" id="__codelineno-7-9" name="__codelineno-7-9"></a><span class="n">ecdf_plot</span><span class="p">(</span>
+<a href="#__codelineno-7-10" id="__codelineno-7-10" name="__codelineno-7-10"></a>    <span class="n">data</span><span class="o">=</span><span class="n">fraud_detect_df</span><span class="p">,</span> 
+<a href="#__codelineno-7-11" id="__codelineno-7-11" name="__codelineno-7-11"></a>    <span class="n">x</span><span class="o">=</span><span class="s2">"amount_log"</span><span class="p">,</span> 
+<a href="#__codelineno-7-12" id="__codelineno-7-12" name="__codelineno-7-12"></a>    <span class="n">xlabel</span><span class="o">=</span><span class="s2">"Amount"</span><span class="p">,</span> 
+<a href="#__codelineno-7-13" id="__codelineno-7-13" name="__codelineno-7-13"></a>    <span class="n">ylabel</span><span class="o">=</span><span class="s2">"Density"</span><span class="p">,</span> 
+<a href="#__codelineno-7-14" id="__codelineno-7-14" name="__codelineno-7-14"></a>    <span class="n">hue</span><span class="o">=</span><span class="s2">"is_fraud"</span>
+<a href="#__codelineno-7-15" id="__codelineno-7-15" name="__codelineno-7-15"></a><span class="p">)</span>
+</code></pre></div>
+<p><img alt="ecdf-plot" src="../imgs/amount-log.png"/></p>
+<p>Now, in most of the cases we can clearly see that exist difference between fraud and not fraud based on log transformed values of the <code>amount</code> category. Observing those values as a boxplot, we can see the difference on the medians and infer that those distributions are really different.</p>
+<div class="highlight"><pre><span></span><code><a href="#__codelineno-8-1" id="__codelineno-8-1" name="__codelineno-8-1"></a><span class="n">_</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s2">"is_fraud"</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">"amount_log"</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">fraud_detect_df</span><span class="p">)</span>
+<a href="#__codelineno-8-2" id="__codelineno-8-2" name="__codelineno-8-2"></a><span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div>
+<p><img alt="boxplot-fraud" src="../imgs/amount-log-boxplot.png"/></p>
+<p>So, seems reasonable that we use <code>amount_log</code> for the the rest of the analysis.</p>
+<div class="highlight"><pre><span></span><code><a href="#__codelineno-9-1" id="__codelineno-9-1" name="__codelineno-9-1"></a><span class="c1"># droping amount variable</span>
+<a href="#__codelineno-9-2" id="__codelineno-9-2" name="__codelineno-9-2"></a><span class="n">fraud_detect_df</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s2">"amount"</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<a href="#__codelineno-9-3" id="__codelineno-9-3" name="__codelineno-9-3"></a><span class="n">fraud_detect_df</span>
+<a href="#__codelineno-9-4" id="__codelineno-9-4" name="__codelineno-9-4"></a><span class="c1"># let's check this variable related to the type of the transaction</span>
+<a href="#__codelineno-9-5" id="__codelineno-9-5" name="__codelineno-9-5"></a><span class="n">boxplot_plot</span><span class="p">(</span>
+<a href="#__codelineno-9-6" id="__codelineno-9-6" name="__codelineno-9-6"></a>    <span class="n">data</span><span class="o">=</span><span class="n">fraud_detect_df</span><span class="p">,</span>
+<a href="#__codelineno-9-7" id="__codelineno-9-7" name="__codelineno-9-7"></a>    <span class="n">x</span><span class="o">=</span><span class="s2">"type"</span><span class="p">,</span>
+<a href="#__codelineno-9-8" id="__codelineno-9-8" name="__codelineno-9-8"></a>    <span class="n">y</span><span class="o">=</span><span class="s2">"amount_log"</span><span class="p">,</span>
+<a href="#__codelineno-9-9" id="__codelineno-9-9" name="__codelineno-9-9"></a>    <span class="n">hue</span><span class="o">=</span><span class="s2">"is_fraud"</span><span class="p">,</span>
+<a href="#__codelineno-9-10" id="__codelineno-9-10" name="__codelineno-9-10"></a>    <span class="n">xlabel</span><span class="o">=</span><span class="s2">""</span><span class="p">,</span>
+<a href="#__codelineno-9-11" id="__codelineno-9-11" name="__codelineno-9-11"></a>    <span class="n">ylabel</span><span class="o">=</span><span class="s2">"Amount (log scale)"</span><span class="p">,</span>
+<a href="#__codelineno-9-12" id="__codelineno-9-12" name="__codelineno-9-12"></a><span class="p">)</span>
+</code></pre></div>
+<p><img alt="boxplot-fraud-type" src="../imgs/amount-box-type.png"/></p>
+<p>In most of the cases we can see a clear distinction between <code>type</code>, <code>amount</code> and <code>is_fraud</code>. But, for <code>TRANSFER</code> class, the distributions are very similar. Maybe if we remove some lower outliers we could improve the distinction between those distributions, for now, we'll continue without handling outliers.</p>
+<h3 id="how-the-hour-of-the-transaction-is-related-to-is_fraud">How the hour of the transaction is related to <code>is_fraud</code>?</h3>
+<p>The <code>step</code> variable is the <strong>hour of the transaction</strong>.</p>
+<div class="highlight"><pre><span></span><code><a href="#__codelineno-10-1" id="__codelineno-10-1" name="__codelineno-10-1"></a><span class="n">fraud_on_hours_summary_df</span> <span class="o">=</span> <span class="p">(</span>
+<a href="#__codelineno-10-2" id="__codelineno-10-2" name="__codelineno-10-2"></a>    <span class="n">fraud_detect_df</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s2">"step"</span><span class="p">])[</span><span class="s2">"is_fraud"</span><span class="p">]</span>
+<a href="#__codelineno-10-3" id="__codelineno-10-3" name="__codelineno-10-3"></a>    <span class="o">.</span><span class="n">agg</span><span class="p">(</span>
+<a href="#__codelineno-10-4" id="__codelineno-10-4" name="__codelineno-10-4"></a>        <span class="n">count_fraud</span><span class="o">=</span><span class="nb">sum</span><span class="p">,</span>
+<a href="#__codelineno-10-5" id="__codelineno-10-5" name="__codelineno-10-5"></a>        <span class="n">mean_fraud</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">,</span>
+<a href="#__codelineno-10-6" id="__codelineno-10-6" name="__codelineno-10-6"></a>        <span class="n">median_fraud</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">,</span>
+<a href="#__codelineno-10-7" id="__codelineno-10-7" name="__codelineno-10-7"></a>        <span class="n">count_values</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">size</span><span class="p">,</span>
+<a href="#__codelineno-10-8" id="__codelineno-10-8" name="__codelineno-10-8"></a>    <span class="p">)</span>
+<a href="#__codelineno-10-9" id="__codelineno-10-9" name="__codelineno-10-9"></a>    <span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+<a href="#__codelineno-10-10" id="__codelineno-10-10" name="__codelineno-10-10"></a><span class="p">)</span>
+<a href="#__codelineno-10-11" id="__codelineno-10-11" name="__codelineno-10-11"></a>
+<a href="#__codelineno-10-12" id="__codelineno-10-12" name="__codelineno-10-12"></a><span class="c1"># line plot</span>
+<a href="#__codelineno-10-13" id="__codelineno-10-13" name="__codelineno-10-13"></a><span class="n">fig_dims</span> <span class="o">=</span> <span class="p">(</span><span class="mi">27</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+<a href="#__codelineno-10-14" id="__codelineno-10-14" name="__codelineno-10-14"></a><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="n">fig_dims</span><span class="p">)</span>
+<a href="#__codelineno-10-15" id="__codelineno-10-15" name="__codelineno-10-15"></a><span class="n">_</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">lineplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s2">"step"</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">"mean_fraud"</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">fraud_on_hours_summary_df</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
+<a href="#__codelineno-10-16" id="__codelineno-10-16" name="__codelineno-10-16"></a><span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div>
+<p><img alt="line-step" src="../imgs/line-step.png"/></p>
+<p>This pattern is interesting because seems that there is a threshold on 400hr region, where we have really different kind of distributions. So, I checked what is happing before and after this period regarding to <code>is_fraud</code> variable.</p>
+<table>
+<thead>
+<tr>
+<th>is_fraud</th>
+<th>count before_400hr</th>
+<th>count after_400hr</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>5.782K</td>
+<td>571K</td>
+</tr>
+<tr>
+<td>1</td>
+<td>4.4K</td>
+<td>3.7K</td>
+</tr>
+</tbody>
+</table>
+<p>We're seeing that we have less data on the second block of the plot, especially for non-fraud. Otherwise, the quantity of fraud stay very similar on both blocks. So, the percentage of fraud on the first 400 hours is <strong>0.0773%</strong> and on the second is <strong>0.649%</strong></p>
+<p>We can also create another variable regarding the day of the month that those ours represent, and perform our analyse on both variables.</p>
+<div class="highlight"><pre><span></span><code><a href="#__codelineno-11-1" id="__codelineno-11-1" name="__codelineno-11-1"></a><span class="k">def</span> <span class="nf">get_day</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+<a href="#__codelineno-11-2" id="__codelineno-11-2" name="__codelineno-11-2"></a>    <span class="n">division</span> <span class="o">=</span> <span class="n">x</span> <span class="o">/</span> <span class="mi">24</span>
+<a href="#__codelineno-11-3" id="__codelineno-11-3" name="__codelineno-11-3"></a>    <span class="n">dom</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="n">division</span><span class="p">)</span>
+<a href="#__codelineno-11-4" id="__codelineno-11-4" name="__codelineno-11-4"></a>    <span class="k">return</span> <span class="n">dom</span>
+<a href="#__codelineno-11-5" id="__codelineno-11-5" name="__codelineno-11-5"></a>
+<a href="#__codelineno-11-6" id="__codelineno-11-6" name="__codelineno-11-6"></a><span class="n">fraud_detect_df</span><span class="p">[</span><span class="s2">"day_of_month"</span><span class="p">]</span> <span class="o">=</span> <span class="n">fraud_detect_df</span><span class="p">[</span><span class="s2">"step"</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">get_day</span><span class="p">)</span>
+</code></pre></div>
+<p><img alt="get-day" src="../imgs/get-day-df.png"/></p>
+<p>Now, we'll see how this variable is related to <code>is_fraud</code> and the <code>amount_log</code>, but also we'll look at the boxplot for each of the classes on <code>type</code> that have fraud on the observation. </p>
+<p><div class="highlight"><pre><span></span><code><a href="#__codelineno-12-1" id="__codelineno-12-1" name="__codelineno-12-1"></a><span class="n">df_to_plot</span> <span class="o">=</span> <span class="n">fraud_detect_df</span><span class="p">[</span><span class="n">fraud_detect_df</span><span class="p">[</span><span class="s2">"type"</span><span class="p">]</span> <span class="o">==</span> <span class="s2">"TRANSFER"</span><span class="p">]</span>
+<a href="#__codelineno-12-2" id="__codelineno-12-2" name="__codelineno-12-2"></a>
+<a href="#__codelineno-12-3" id="__codelineno-12-3" name="__codelineno-12-3"></a><span class="n">boxplot_plot</span><span class="p">(</span>
+<a href="#__codelineno-12-4" id="__codelineno-12-4" name="__codelineno-12-4"></a>    <span class="n">x</span><span class="o">=</span><span class="s2">"day_of_month"</span><span class="p">,</span>
+<a href="#__codelineno-12-5" id="__codelineno-12-5" name="__codelineno-12-5"></a>    <span class="n">y</span><span class="o">=</span><span class="s2">"amount_log"</span><span class="p">,</span> 
+<a href="#__codelineno-12-6" id="__codelineno-12-6" name="__codelineno-12-6"></a>    <span class="n">data</span><span class="o">=</span><span class="n">df_to_plot</span><span class="p">,</span> 
+<a href="#__codelineno-12-7" id="__codelineno-12-7" name="__codelineno-12-7"></a>    <span class="n">hue</span><span class="o">=</span><span class="s2">"is_fraud"</span><span class="p">,</span> 
+<a href="#__codelineno-12-8" id="__codelineno-12-8" name="__codelineno-12-8"></a>    <span class="n">xlabel</span><span class="o">=</span><span class="s2">"Day of the month"</span><span class="p">,</span> 
+<a href="#__codelineno-12-9" id="__codelineno-12-9" name="__codelineno-12-9"></a>    <span class="n">ylabel</span><span class="o">=</span><span class="s2">"Amount (log scale)"</span><span class="p">,</span> 
+<a href="#__codelineno-12-10" id="__codelineno-12-10" name="__codelineno-12-10"></a>    <span class="n">title</span><span class="o">=</span><span class="s2">"Regarding type == 'TRANSFER'"</span><span class="p">,</span> 
+<a href="#__codelineno-12-11" id="__codelineno-12-11" name="__codelineno-12-11"></a>    <span class="n">horizontal</span><span class="o">=</span><span class="kc">True</span>
+<a href="#__codelineno-12-12" id="__codelineno-12-12" name="__codelineno-12-12"></a><span class="p">)</span>
+</code></pre></div>
+<img alt="boxplot-fraud-type" src="../imgs/amount-box-type_2.png"/></p>
+<div class="highlight"><pre><span></span><code><a href="#__codelineno-13-1" id="__codelineno-13-1" name="__codelineno-13-1"></a><span class="n">df_to_plot</span> <span class="o">=</span> <span class="n">fraud_detect_df</span><span class="p">[</span><span class="n">fraud_detect_df</span><span class="p">[</span><span class="s2">"type"</span><span class="p">]</span> <span class="o">==</span> <span class="s2">"CASH_OUT"</span><span class="p">]</span>
+<a href="#__codelineno-13-2" id="__codelineno-13-2" name="__codelineno-13-2"></a>
+<a href="#__codelineno-13-3" id="__codelineno-13-3" name="__codelineno-13-3"></a><span class="n">boxplot_plot</span><span class="p">(</span>
+<a href="#__codelineno-13-4" id="__codelineno-13-4" name="__codelineno-13-4"></a>    <span class="n">x</span><span class="o">=</span><span class="s2">"day_of_month"</span><span class="p">,</span>
+<a href="#__codelineno-13-5" id="__codelineno-13-5" name="__codelineno-13-5"></a>    <span class="n">y</span><span class="o">=</span><span class="s2">"amount_log"</span><span class="p">,</span> 
+<a href="#__codelineno-13-6" id="__codelineno-13-6" name="__codelineno-13-6"></a>    <span class="n">data</span><span class="o">=</span><span class="n">df_to_plot</span><span class="p">,</span> 
+<a href="#__codelineno-13-7" id="__codelineno-13-7" name="__codelineno-13-7"></a>    <span class="n">hue</span><span class="o">=</span><span class="s2">"is_fraud"</span><span class="p">,</span> 
+<a href="#__codelineno-13-8" id="__codelineno-13-8" name="__codelineno-13-8"></a>    <span class="n">xlabel</span><span class="o">=</span><span class="s2">"Day of the month"</span><span class="p">,</span> 
+<a href="#__codelineno-13-9" id="__codelineno-13-9" name="__codelineno-13-9"></a>    <span class="n">ylabel</span><span class="o">=</span><span class="s2">"Amount (log scale)"</span><span class="p">,</span> 
+<a href="#__codelineno-13-10" id="__codelineno-13-10" name="__codelineno-13-10"></a>    <span class="n">title</span><span class="o">=</span><span class="s2">"Regarding type == 'CASH_OUT'"</span><span class="p">,</span> 
+<a href="#__codelineno-13-11" id="__codelineno-13-11" name="__codelineno-13-11"></a>    <span class="n">horizontal</span><span class="o">=</span><span class="kc">True</span>
+<a href="#__codelineno-13-12" id="__codelineno-13-12" name="__codelineno-13-12"></a><span class="p">)</span>
+</code></pre></div>
+<p><img alt="boxplot-fraud-type" src="../imgs/amount-box-type_3.png"/></p>
+<p>Was observed that the <strong>amount variable</strong>, is related just to the difference between origin and not the destination. So, let's add this variable to our dataset.</p>
+<div class="highlight"><pre><span></span><code><a href="#__codelineno-14-1" id="__codelineno-14-1" name="__codelineno-14-1"></a><span class="n">fraud_detect_df</span><span class="p">[</span><span class="s2">"amount_dest"</span><span class="p">]</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">((</span><span class="n">fraud_detect_df</span><span class="p">[</span><span class="s2">"old_balance_dest"</span><span class="p">])</span> <span class="o">-</span> <span class="p">(</span><span class="n">fraud_detect_df</span><span class="p">[</span><span class="s2">"new_balance_dest"</span><span class="p">]))</span>
+<a href="#__codelineno-14-2" id="__codelineno-14-2" name="__codelineno-14-2"></a><span class="n">fraud_detect_df</span><span class="p">[</span><span class="s2">"amount_dest_log"</span><span class="p">]</span> <span class="o">=</span> <span class="n">fraud_detect_df</span><span class="p">[</span><span class="s2">"amount_dest"</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">log_transform</span><span class="p">)</span>
+</code></pre></div>
+<p>And also, investigate the those boxplots.</p>
+<div class="highlight"><pre><span></span><code><a href="#__codelineno-15-1" id="__codelineno-15-1" name="__codelineno-15-1"></a><span class="n">df_to_plot</span> <span class="o">=</span> <span class="n">fraud_detect_df</span><span class="p">[</span><span class="n">fraud_detect_df</span><span class="p">[</span><span class="s2">"type"</span><span class="p">]</span> <span class="o">==</span> <span class="s2">"TRANSFER"</span><span class="p">]</span>
+<a href="#__codelineno-15-2" id="__codelineno-15-2" name="__codelineno-15-2"></a>
+<a href="#__codelineno-15-3" id="__codelineno-15-3" name="__codelineno-15-3"></a><span class="n">boxplot_plot</span><span class="p">(</span>
+<a href="#__codelineno-15-4" id="__codelineno-15-4" name="__codelineno-15-4"></a>    <span class="n">x</span><span class="o">=</span><span class="s2">"day_of_month"</span><span class="p">,</span>
+<a href="#__codelineno-15-5" id="__codelineno-15-5" name="__codelineno-15-5"></a>    <span class="n">y</span><span class="o">=</span><span class="s2">"amount_dest_log"</span><span class="p">,</span> 
+<a href="#__codelineno-15-6" id="__codelineno-15-6" name="__codelineno-15-6"></a>    <span class="n">data</span><span class="o">=</span><span class="n">df_to_plot</span><span class="p">,</span> 
+<a href="#__codelineno-15-7" id="__codelineno-15-7" name="__codelineno-15-7"></a>    <span class="n">hue</span><span class="o">=</span><span class="s2">"is_fraud"</span><span class="p">,</span> 
+<a href="#__codelineno-15-8" id="__codelineno-15-8" name="__codelineno-15-8"></a>    <span class="n">xlabel</span><span class="o">=</span><span class="s2">"Day of the month"</span><span class="p">,</span> 
+<a href="#__codelineno-15-9" id="__codelineno-15-9" name="__codelineno-15-9"></a>    <span class="n">ylabel</span><span class="o">=</span><span class="s2">"Amount (log scale)"</span><span class="p">,</span> 
+<a href="#__codelineno-15-10" id="__codelineno-15-10" name="__codelineno-15-10"></a>    <span class="n">title</span><span class="o">=</span><span class="s2">"Regarding type == 'TRANSFER'"</span><span class="p">,</span> 
+<a href="#__codelineno-15-11" id="__codelineno-15-11" name="__codelineno-15-11"></a>    <span class="n">horizontal</span><span class="o">=</span><span class="kc">True</span>
+<a href="#__codelineno-15-12" id="__codelineno-15-12" name="__codelineno-15-12"></a><span class="p">)</span>
+<a href="#__codelineno-15-13" id="__codelineno-15-13" name="__codelineno-15-13"></a>
+<a href="#__codelineno-15-14" id="__codelineno-15-14" name="__codelineno-15-14"></a><span class="n">df_to_plot</span> <span class="o">=</span> <span class="n">fraud_detect_df</span><span class="p">[</span><span class="n">fraud_detect_df</span><span class="p">[</span><span class="s2">"type"</span><span class="p">]</span> <span class="o">==</span> <span class="s2">"CASH_OUT"</span><span class="p">]</span>
+</code></pre></div>
+<p><img alt="boxplot-fraud-type" src="../imgs/amount-box-type_4.png"/></p>
+<div class="highlight"><pre><span></span><code><a href="#__codelineno-16-1" id="__codelineno-16-1" name="__codelineno-16-1"></a><span class="n">boxplot_plot</span><span class="p">(</span>
+<a href="#__codelineno-16-2" id="__codelineno-16-2" name="__codelineno-16-2"></a>    <span class="n">x</span><span class="o">=</span><span class="s2">"day_of_month"</span><span class="p">,</span>
+<a href="#__codelineno-16-3" id="__codelineno-16-3" name="__codelineno-16-3"></a>    <span class="n">y</span><span class="o">=</span><span class="s2">"amount_log"</span><span class="p">,</span> 
+<a href="#__codelineno-16-4" id="__codelineno-16-4" name="__codelineno-16-4"></a>    <span class="n">data</span><span class="o">=</span><span class="n">df_to_plot</span><span class="p">,</span> 
+<a href="#__codelineno-16-5" id="__codelineno-16-5" name="__codelineno-16-5"></a>    <span class="n">hue</span><span class="o">=</span><span class="s2">"is_fraud"</span><span class="p">,</span> 
+<a href="#__codelineno-16-6" id="__codelineno-16-6" name="__codelineno-16-6"></a>    <span class="n">xlabel</span><span class="o">=</span><span class="s2">"Day of the month"</span><span class="p">,</span> 
+<a href="#__codelineno-16-7" id="__codelineno-16-7" name="__codelineno-16-7"></a>    <span class="n">ylabel</span><span class="o">=</span><span class="s2">"Amount (log scale)"</span><span class="p">,</span> 
+<a href="#__codelineno-16-8" id="__codelineno-16-8" name="__codelineno-16-8"></a>    <span class="n">title</span><span class="o">=</span><span class="s2">"Regarding type == 'CASH_OUT'"</span><span class="p">,</span> 
+<a href="#__codelineno-16-9" id="__codelineno-16-9" name="__codelineno-16-9"></a>    <span class="n">horizontal</span><span class="o">=</span><span class="kc">True</span>
+<a href="#__codelineno-16-10" id="__codelineno-16-10" name="__codelineno-16-10"></a><span class="p">)</span>
+<a href="#__codelineno-16-11" id="__codelineno-16-11" name="__codelineno-16-11"></a><span class="c1">## Exporting our final dataset for modeling</span>
+<a href="#__codelineno-16-12" id="__codelineno-16-12" name="__codelineno-16-12"></a><span class="n">final_fraud_df</span> <span class="o">=</span> <span class="n">fraud_detect_df</span><span class="p">[[</span><span class="s2">"day_of_month"</span><span class="p">,</span> <span class="s2">"type"</span><span class="p">,</span> <span class="s2">"amount_log"</span><span class="p">,</span> <span class="s2">"amount_dest_log"</span><span class="p">,</span> <span class="s2">"is_fraud"</span><span class="p">]]</span>
+<a href="#__codelineno-16-13" id="__codelineno-16-13" name="__codelineno-16-13"></a><span class="n">final_fraud_df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s2">"data/second-eda-output.csv"</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</code></pre></div>
+<p><img alt="boxplot-fraud-type" src="../imgs/amount-box-type_5.png"/></p>
+<h3 id="the-final-dataset">The Final Dataset</h3>
+<p><img alt="final-df" src="../imgs/final-df.png"/></p>
+</article>
+</div>
+</div>
+</main>
+<footer class="md-footer">
+<nav aria-label="Footer" class="md-footer__inner md-grid">
+<a aria-label="Previous: Home" class="md-footer__link md-footer__link--prev" href=".." rel="prev">
+<div class="md-footer__button md-icon">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"></path></svg>
+</div>
+<div class="md-footer__title">
+<div class="md-ellipsis">
+<span class="md-footer__direction">
+                Previous
+              </span>
+              Home
+            </div>
+</div>
+</a>
+<a aria-label="Next: Baseline" class="md-footer__link md-footer__link--next" href="../baseline/" rel="next">
+<div class="md-footer__title">
+<div class="md-ellipsis">
+<span class="md-footer__direction">
+                Next
+              </span>
+              Baseline
+            </div>
+</div>
+<div class="md-footer__button md-icon">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"></path></svg>
+</div>
+</a>
+</nav>
+<div class="md-footer-meta md-typeset">
+<div class="md-footer-meta__inner md-grid">
+<div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" rel="noopener" target="_blank">
+      Material for MkDocs
+    </a>
+</div>
+</div>
+</div>
+</footer>
+</div>
+<div class="md-dialog" data-md-component="dialog">
+<div class="md-dialog__inner md-typeset"></div>
+</div>
+<script id="__config" type="application/json">{"base": "..", "features": [], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../assets/javascripts/workers/search.22074ed6.min.js"}</script>
+<script src="../assets/javascripts/bundle.01de222e.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/tablesort.min.js"></script>
+<script src="../javascripts/tablesort.js"></script>
+</body>
+</html>
