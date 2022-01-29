@@ -18,3 +18,14 @@ Keep tracking of your experiments is a very important task of the Data Scientist
 | model-v3 | 0.027 | *0.877* | 0.958 | 0.918 | **0.052** | 98.94 |
 | :fontawesome-regular-laugh-wink: model-v4 | 0.696 | 0.676 | 0.999 | 0.838 | **0.686** | 252.80 |
 
+
+## Best Model
+
+I choose to pick the model with the best value of **F1 score**. This model could be more balanced between all others trained, and for not overfitting during the training.
+
+This model got right **67.6% of the frauds** that actually is fraud. And, from **all predictions on fraud, 69.6% was right**.
+
+I believe that this result will not dethrone American Express, but now, I can work on improve those models with another techniques of balancing and hyperparameter tuning to increase the F1 score.
+
+
+

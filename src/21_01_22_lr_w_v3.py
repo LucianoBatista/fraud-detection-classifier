@@ -2,6 +2,7 @@ import pickle
 import timeit
 
 import pandas as pd
+from sklearn import preprocessing
 
 from preprocessing.utils_preprocessing import PreProcessingPipe, Training
 

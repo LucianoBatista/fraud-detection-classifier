@@ -24,3 +24,8 @@ graph TD
 ## Confusion Matrix
 
 ![confusion-matrix](imgs/21_01_22_lr_w_v3.png)
+
+
+## Feature Importance
+
+![feat-importance](imgs/feat-importance.png)
