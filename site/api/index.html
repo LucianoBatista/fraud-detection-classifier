@@ -163,19 +163,19 @@
 <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
 <li class="md-nav__item">
 <a class="md-nav__link" href="#stack">
-    Stack
+     Stack
   </a>
 </li>
 <li class="md-nav__item">
 <a class="md-nav__link" href="#infrastructure-schema">
-    Infrastructure schema
+     Infrastructure schema
   </a>
 </li>
 <li class="md-nav__item">
 <a class="md-nav__link" href="#how-to-use">
-    How to use
+     How to use
   </a>
-<nav aria-label="How to use" class="md-nav">
+<nav aria-label=" How to use" class="md-nav">
 <ul class="md-nav__list">
 <li class="md-nav__item">
 <a class="md-nav__link" href="#routes">
@@ -193,11 +193,26 @@
     Training
   </a>
 </li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#predict">
+    Predict
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#model-healthy">
+    Model Healthy
+  </a>
+</li>
 </ul>
 </nav>
 </li>
 </ul>
 </nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#technical-debits">
+     Technical Debits
+  </a>
 </li>
 </ul>
 </nav>
@@ -218,19 +233,19 @@
 <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
 <li class="md-nav__item">
 <a class="md-nav__link" href="#stack">
-    Stack
+     Stack
   </a>
 </li>
 <li class="md-nav__item">
 <a class="md-nav__link" href="#infrastructure-schema">
-    Infrastructure schema
+     Infrastructure schema
   </a>
 </li>
 <li class="md-nav__item">
 <a class="md-nav__link" href="#how-to-use">
-    How to use
+     How to use
   </a>
-<nav aria-label="How to use" class="md-nav">
+<nav aria-label=" How to use" class="md-nav">
 <ul class="md-nav__list">
 <li class="md-nav__item">
 <a class="md-nav__link" href="#routes">
@@ -248,11 +263,26 @@
     Training
   </a>
 </li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#predict">
+    Predict
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#model-healthy">
+    Model Healthy
+  </a>
+</li>
 </ul>
 </nav>
 </li>
 </ul>
 </nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#technical-debits">
+     Technical Debits
+  </a>
 </li>
 </ul>
 </nav>
@@ -262,51 +292,58 @@
 <div class="md-content" data-md-component="content">
 <article class="md-content__inner md-typeset">
 <h1>API</h1>
-<p>From the modeling phase, I though that was interesting to put this model in production and analyse how this will perform with new unseen data.</p>
-<p>Beside that, the process to develop an API and serve a machine learning model is a very important skill for a Data Scientist.</p>
-<p>Here you'll see some information about the API:</p>
+<p>From the modeling phase, I though that was interesting to put our model in production and analyse how this will perform with new unseen data.</p>
+<p>Beside that, the process to develop an API and serve a machine learning model is a very important skill for a Data Scientist, this way the Fraud Detection Challenge is a great opportunity to train this end to end workflow.</p>
+<p>To better show you, how the API was developed, I separate the information into some topics:</p>
 <ul>
 <li><strong>Stack</strong></li>
 <li><strong>Infrastructure schema</strong></li>
 <li><strong>How to use</strong></li>
 <li><strong>Technical Debits</strong></li>
 </ul>
-<h2 id="stack">Stack</h2>
-<ul>
-<li>Flask</li>
-<li>Celery</li>
-<li>Pytest</li>
-<li>Redis</li>
-<li>Postgres</li>
-<li>Docker</li>
-<li>Heroku</li>
-</ul>
-<h2 id="infrastructure-schema">Infrastructure schema</h2>
+<p>If you want to look at the code of the API, you can access this <a href="https://github.com/LucianoBatista/fraud-detection-api">repository</a>.</p>
+<h2 id="stack"><span class="twemoji"><svg viewbox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><path d="M416 48v416c0 26.51-21.49 48-48 48H144c-26.51 0-48-21.49-48-48V48c0-26.51 21.49-48 48-48h224c26.51 0 48 21.49 48 48zm96 58v12a6 6 0 0 1-6 6h-18v6a6 6 0 0 1-6 6h-42V88h42a6 6 0 0 1 6 6v6h18a6 6 0 0 1 6 6zm0 96v12a6 6 0 0 1-6 6h-18v6a6 6 0 0 1-6 6h-42v-48h42a6 6 0 0 1 6 6v6h18a6 6 0 0 1 6 6zm0 96v12a6 6 0 0 1-6 6h-18v6a6 6 0 0 1-6 6h-42v-48h42a6 6 0 0 1 6 6v6h18a6 6 0 0 1 6 6zm0 96v12a6 6 0 0 1-6 6h-18v6a6 6 0 0 1-6 6h-42v-48h42a6 6 0 0 1 6 6v6h18a6 6 0 0 1 6 6zM30 376h42v48H30a6 6 0 0 1-6-6v-6H6a6 6 0 0 1-6-6v-12a6 6 0 0 1 6-6h18v-6a6 6 0 0 1 6-6zm0-96h42v48H30a6 6 0 0 1-6-6v-6H6a6 6 0 0 1-6-6v-12a6 6 0 0 1 6-6h18v-6a6 6 0 0 1 6-6zm0-96h42v48H30a6 6 0 0 1-6-6v-6H6a6 6 0 0 1-6-6v-12a6 6 0 0 1 6-6h18v-6a6 6 0 0 1 6-6zm0-96h42v48H30a6 6 0 0 1-6-6v-6H6a6 6 0 0 1-6-6v-12a6 6 0 0 1 6-6h18v-6a6 6 0 0 1 6-6z"></path></svg></span> Stack</h2>
+<p><img alt="stack" src="../imgs/stack.png"/></p>
+<blockquote>
+<p>Flask, Celery, redis, Pytest, Docker, Postgres and Heroku</p>
+</blockquote>
+<h2 id="infrastructure-schema"><span class="twemoji"><svg viewbox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><path d="M149.333 56v80c0 13.255-10.745 24-24 24H24c-13.255 0-24-10.745-24-24V56c0-13.255 10.745-24 24-24h101.333c13.255 0 24 10.745 24 24zm181.334 240v-80c0-13.255-10.745-24-24-24H205.333c-13.255 0-24 10.745-24 24v80c0 13.255 10.745 24 24 24h101.333c13.256 0 24.001-10.745 24.001-24zm32-240v80c0 13.255 10.745 24 24 24H488c13.255 0 24-10.745 24-24V56c0-13.255-10.745-24-24-24H386.667c-13.255 0-24 10.745-24 24zm-32 80V56c0-13.255-10.745-24-24-24H205.333c-13.255 0-24 10.745-24 24v80c0 13.255 10.745 24 24 24h101.333c13.256 0 24.001-10.745 24.001-24zm-205.334 56H24c-13.255 0-24 10.745-24 24v80c0 13.255 10.745 24 24 24h101.333c13.255 0 24-10.745 24-24v-80c0-13.255-10.745-24-24-24zM0 376v80c0 13.255 10.745 24 24 24h101.333c13.255 0 24-10.745 24-24v-80c0-13.255-10.745-24-24-24H24c-13.255 0-24 10.745-24 24zm386.667-56H488c13.255 0 24-10.745 24-24v-80c0-13.255-10.745-24-24-24H386.667c-13.255 0-24 10.745-24 24v80c0 13.255 10.745 24 24 24zm0 160H488c13.255 0 24-10.745 24-24v-80c0-13.255-10.745-24-24-24H386.667c-13.255 0-24 10.745-24 24v80c0 13.255 10.745 24 24 24zM181.333 376v80c0 13.255 10.745 24 24 24h101.333c13.255 0 24-10.745 24-24v-80c0-13.255-10.745-24-24-24H205.333c-13.255 0-24 10.745-24 24z"></path></svg></span> Infrastructure schema</h2>
 <div class="mermaid">sequenceDiagram
+Note left of User: /api/v1/training
 User-&gt;&gt;Flask: Send model to training
-Flask -&gt;&gt; User: Return the id of the training model
-Flask--&gt;&gt;Postgres: Send model registration
-Celery (worker)-&gt;&gt;Postgres: Get the model to train
-Celery (worker)-&gt;&gt;Postgres: Update trained model
+Flask --&gt;&gt; User: Return the id of the training model
+Flask-&gt;&gt;Postgres: Send model registration
+Celery (worker)--&gt;&gt;Postgres: Get the model to train
+Celery (worker)--&gt;&gt;Postgres: Update trained model
+
+Note left of User: /api/v1/training/{model_id}
 User -&gt;&gt; Flask: Get the model training status
 Flask -&gt;&gt; Postgres: Get the model training status
-Flask -&gt;&gt; User: Return the status of the model training
+Flask --&gt;&gt; User: Return the status of the model training
+
+Note left of User: /api/v1/model/predict
 User -&gt;&gt; Flask: Predict if is fraud or not
 Flask -&gt;&gt; Postgres: Register the prediction log
-Flask -&gt;&gt; User: Fraud prediction
+Flask --&gt;&gt; User: Fraud prediction
+
+Note left of User: /api/v1/model/healthy
 User -&gt;&gt; Flask: Check current model metrics
 Flask -&gt;&gt; Postgres: Filter models by enabled=True
-Flask -&gt;&gt; User: Return 6 different metrics of healthy of the model
+Flask --&gt;&gt; User: Return 6 different metrics of healthy of the model
+
+Note left of User: /api/v1/status
 User -&gt;&gt; Flask: Check the status of the app
-Flask -&gt;&gt; User: Return if the API is working
+Flask --&gt;&gt; User: Return if the API is working
 </div>
-<h2 id="how-to-use">How to use</h2>
-<p>The API is deployed on Heroku and as I put a Swagger interface is possible to interact with the API directly from the browser, just access this <a href="https://salty-mesa-00197.herokuapp.com/doc">link</a>.</p>
+<h2 id="how-to-use"><span class="twemoji"><svg viewbox="0 0 640 512" xmlns="http://www.w3.org/2000/svg"><path d="M192 160h32V32h-32c-35.35 0-64 28.65-64 64s28.65 64 64 64zM0 416c0 35.35 28.65 64 64 64h32V352H64c-35.35 0-64 28.65-64 64zm337.46-128c-34.91 0-76.16 13.12-104.73 32-24.79 16.38-44.52 32-104.73 32v128l57.53 15.97c26.21 7.28 53.01 13.12 80.31 15.05 32.69 2.31 65.6.67 97.58-6.2C472.9 481.3 512 429.22 512 384c0-64-84.18-96-174.54-96zM491.42 7.19C459.44.32 426.53-1.33 393.84.99c-27.3 1.93-54.1 7.77-80.31 15.04L256 32v128c60.2 0 79.94 15.62 104.73 32 28.57 18.88 69.82 32 104.73 32C555.82 224 640 192 640 128c0-45.22-39.1-97.3-148.58-120.81z"></path></svg></span> How to use</h2>
+<p>The API is deployed on Heroku and as I put a Swagger interface is possible to you to interact with the API directly from the browser, just access this <a href="https://salty-mesa-00197.herokuapp.com/doc">link</a>.</p>
 <p>The interface that you'll probably see is:</p>
 <p><img alt="swagger" src="../imgs/swagger.png"/></p>
-<p>You'll see different routes of POST and GET. On all the POSTs you need to send some information for the API.</p>
-<p>On the following image, we're seeing the training route where we need to send a link with the dataset to train.</p>
+<p>You'll see different routes of <strong>POST</strong> and <strong>GET</strong>. On all the POSTs you need to send some information regarding to that endpoint.</p>
+<p>To use the endpoints you'll need to click on <em>Try it on</em>, and put the information needed. After that, you need to click on <em>POST</em> or <em>GET</em>, depending on the endpoint you choose. </p>
+<p>On the following image, you're seeing the Training (POST) endpoint.</p>
 <p><img alt="swagger-example" src="../imgs/swagger-training.png"/></p>
+<p>Let's see about all the routes of this API.</p>
 <h3 id="routes">Routes</h3>
 <h4 id="status">Status</h4>
 <p>This route is just a GET, and will return the status of the API, like:</p>
@@ -317,17 +354,47 @@ Flask -&gt;&gt; User: Return if the API is working
 <a href="#__codelineno-0-5" id="__codelineno-0-5" name="__codelineno-0-5"></a><span class="w">  </span><span class="nt">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"pong!"</span><span class="w"></span>
 <a href="#__codelineno-0-6" id="__codelineno-0-6" name="__codelineno-0-6"></a><span class="p">}</span><span class="w"> </span>
 </code></pre></div>
-<ol>
-<li>returning json</li>
-</ol>
 <h4 id="training">Training</h4>
-<p>On the POST route you'll need to send a public link with your csv to train the model. This route will return to you the ID of processing, and you'll use this id to check the status of the training.</p>
-<div class="highlight"><pre><span></span><code><a href="#__codelineno-1-1" id="__codelineno-1-1" name="__codelineno-1-1"></a><span class="p">{</span><span class="w"></span>
-<a href="#__codelineno-1-2" id="__codelineno-1-2" name="__codelineno-1-2"></a><span class="w">  </span><span class="nt">"dataset"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w"></span>
-<a href="#__codelineno-1-3" id="__codelineno-1-3" name="__codelineno-1-3"></a><span class="p">}</span><span class="w"></span>
+<p>On the POST route of training, you'll need to <strong>send a public link</strong> with your csv to train the model. This route will return to you the ID of processing, and you'll use this id to check the status of the training.</p>
+<div class="highlight"><pre><span></span><code><a href="#__codelineno-1-1" id="__codelineno-1-1" name="__codelineno-1-1"></a><span class="err">/*</span><span class="w"> </span><span class="err">payload</span><span class="w"> </span><span class="err">jso</span><span class="kc">n</span><span class="w"> </span><span class="err">*/</span><span class="w"></span>
+<a href="#__codelineno-1-2" id="__codelineno-1-2" name="__codelineno-1-2"></a><span class="p">{</span><span class="w"></span>
+<a href="#__codelineno-1-3" id="__codelineno-1-3" name="__codelineno-1-3"></a><span class="w">  </span><span class="nt">"dataset"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w"></span>
+<a href="#__codelineno-1-4" id="__codelineno-1-4" name="__codelineno-1-4"></a><span class="p">}</span><span class="w"></span>
+<a href="#__codelineno-1-5" id="__codelineno-1-5" name="__codelineno-1-5"></a>
+<a href="#__codelineno-1-6" id="__codelineno-1-6" name="__codelineno-1-6"></a><span class="err">/*</span><span class="w"> </span><span class="err">re</span><span class="kc">turn</span><span class="w"> </span><span class="err">jso</span><span class="kc">n</span><span class="w"> </span><span class="err">*/</span><span class="w"></span>
+<a href="#__codelineno-1-7" id="__codelineno-1-7" name="__codelineno-1-7"></a><span class="p">{</span><span class="w"></span>
+<a href="#__codelineno-1-8" id="__codelineno-1-8" name="__codelineno-1-8"></a><span class="w">    </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="err">i</span><span class="kc">nt</span><span class="w"></span>
+<a href="#__codelineno-1-9" id="__codelineno-1-9" name="__codelineno-1-9"></a><span class="p">}</span><span class="w"></span>
 </code></pre></div>
+<p>On the GET route of training, you need to pass the id of processing within tha endpoint url. After that, you receive the status of this process: <em>pending, processing, processed, error.</em></p>
+<h4 id="predict">Predict</h4>
+<p>This route is responsible to apply our model on new data provided by the user. For now, we're accepting just single predictions, latter we'll accept batch predictions too.</p>
+<p>The format that this endpoint needs to receive is:</p>
+<div class="highlight"><pre><span></span><code><a href="#__codelineno-2-1" id="__codelineno-2-1" name="__codelineno-2-1"></a><span class="err">/*</span><span class="w"> </span><span class="err">payload</span><span class="w"> </span><span class="err">jso</span><span class="kc">n</span><span class="w"> </span><span class="err">*/</span><span class="w"></span>
+<a href="#__codelineno-2-2" id="__codelineno-2-2" name="__codelineno-2-2"></a><span class="p">{</span><span class="w"></span>
+<a href="#__codelineno-2-3" id="__codelineno-2-3" name="__codelineno-2-3"></a><span class="w">  </span><span class="nt">"day_of_month"</span><span class="p">:</span><span class="w"> </span><span class="err">i</span><span class="kc">nt</span><span class="p">,</span><span class="w"></span>
+<a href="#__codelineno-2-4" id="__codelineno-2-4" name="__codelineno-2-4"></a><span class="w">  </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w"></span>
+<a href="#__codelineno-2-5" id="__codelineno-2-5" name="__codelineno-2-5"></a><span class="w">  </span><span class="nt">"amount_log"</span><span class="p">:</span><span class="w"> </span><span class="kc">fl</span><span class="err">oa</span><span class="kc">t</span><span class="p">,</span><span class="w"></span>
+<a href="#__codelineno-2-6" id="__codelineno-2-6" name="__codelineno-2-6"></a><span class="w">  </span><span class="nt">"amount_dest"</span><span class="p">:</span><span class="w"> </span><span class="kc">fl</span><span class="err">oa</span><span class="kc">t</span><span class="w"></span>
+<a href="#__codelineno-2-7" id="__codelineno-2-7" name="__codelineno-2-7"></a><span class="p">}</span><span class="w"></span>
+</code></pre></div>
+<h4 id="model-healthy">Model Healthy</h4>
+<p>As we'll be using this API to re-training our model across the months, the model can be replaced if we find a better metric. So, is important that we have a healthy check, to see which model is in production.</p>
+<p>The return from this endpoint, is:</p>
+<div class="highlight"><pre><span></span><code><a href="#__codelineno-3-1" id="__codelineno-3-1" name="__codelineno-3-1"></a><span class="p">{</span><span class="w"></span>
+<a href="#__codelineno-3-2" id="__codelineno-3-2" name="__codelineno-3-2"></a><span class="w">  </span><span class="nt">"modelname"</span><span class="p">:</span><span class="w"> </span><span class="s2">"model_name"</span><span class="p">,</span><span class="w"></span>
+<a href="#__codelineno-3-3" id="__codelineno-3-3" name="__codelineno-3-3"></a><span class="w">  </span><span class="nt">"accuracy"</span><span class="p">:</span><span class="w"> </span><span class="kc">fl</span><span class="err">oa</span><span class="kc">t</span><span class="p">,</span><span class="w"></span>
+<a href="#__codelineno-3-4" id="__codelineno-3-4" name="__codelineno-3-4"></a><span class="w">  </span><span class="nt">"recall"</span><span class="p">:</span><span class="w"> </span><span class="kc">fl</span><span class="err">oa</span><span class="kc">t</span><span class="p">,</span><span class="w"></span>
+<a href="#__codelineno-3-5" id="__codelineno-3-5" name="__codelineno-3-5"></a><span class="w">  </span><span class="nt">"f1"</span><span class="p">:</span><span class="w"> </span><span class="kc">fl</span><span class="err">oa</span><span class="kc">t</span><span class="p">,</span><span class="w"></span>
+<a href="#__codelineno-3-6" id="__codelineno-3-6" name="__codelineno-3-6"></a><span class="w">  </span><span class="nt">"enabled"</span><span class="p">:</span><span class="w"> </span><span class="err">bool</span><span class="w"></span>
+<a href="#__codelineno-3-7" id="__codelineno-3-7" name="__codelineno-3-7"></a><span class="p">}</span><span class="w"></span>
+</code></pre></div>
+<h2 id="technical-debits"><span class="twemoji"><svg viewbox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><path d="M504 256c0 136.997-111.043 248-248 248S8 392.997 8 256C8 119.083 119.043 8 256 8s248 111.083 248 248zm-248 50c-25.405 0-46 20.595-46 46s20.595 46 46 46 46-20.595 46-46-20.595-46-46-46zm-43.673-165.346 7.418 136c.347 6.364 5.609 11.346 11.982 11.346h48.546c6.373 0 11.635-4.982 11.982-11.346l7.418-136c.375-6.874-5.098-12.654-11.982-12.654h-63.383c-6.884 0-12.356 5.78-11.981 12.654z"></path></svg></span> Technical Debits</h2>
 <ul>
-<li>Training (POST):</li>
+<li>Training route is not working properly.</li>
+<li>The API doesn't have a Authentication or Authorization.</li>
+<li>I'm not validating input and outputs.</li>
+<li>Just a very small portion of the code have tests <span class="twemoji"><svg viewbox="0 0 496 512" xmlns="http://www.w3.org/2000/svg"><path d="M248 8C111 8 0 119 0 256s111 248 248 248 248-111 248-248S385 8 248 8zm80 168c17.7 0 32 14.3 32 32s-14.3 32-32 32-32-14.3-32-32 14.3-32 32-32zm-160 0c17.7 0 32 14.3 32 32s-14.3 32-32 32-32-14.3-32-32 14.3-32 32-32zm170.2 218.2C315.8 367.4 282.9 352 248 352s-67.8 15.4-90.2 42.2c-13.5 16.3-38.1-4.2-24.6-20.5C161.7 339.6 203.6 320 248 320s86.3 19.6 114.7 53.8c13.6 16.2-11 36.7-24.5 20.4z"></path></svg></span></li>
 </ul>
 </article>
 </div>

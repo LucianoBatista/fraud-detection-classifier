@@ -4,11 +4,13 @@ authors:
     - Luciano
 ---
 
-## Fraud Detection EDA
+## :fontawesome-solid-money-bill-alt: Fraud Detection EDA
 
 ![img-png](imgs/fraud.jpg)
 
 > A fraudulent action here is the act of invade some user bank account, and empty it by transferring it to another account and them withdrawing the money.
+
+If you want to look at the full code of others EDAs and functions used here, you can access the [repository](https://github.com/LucianoBatista/fraud-detection-classifier).
 
 ### Libraries 
 

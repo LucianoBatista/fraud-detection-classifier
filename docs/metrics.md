@@ -6,7 +6,7 @@ authors:
 
 After the training and prediction steps, all the metrics will be collected and added on this report.
 
-## Perfomance Table
+## :fontawesome-solid-space-shuttle: Perfomance Table
 
 Keep tracking of your experiments is a very important task of the Data Scientist, so check the following table to have all the information about the models trained during the challenge of Fraud Detection.
 
@@ -19,7 +19,7 @@ Keep tracking of your experiments is a very important task of the Data Scientist
 | :fontawesome-regular-laugh-wink: model-v4 | 0.696 | 0.676 | 0.999 | 0.838 | **0.686** | 252.80 |
 
 
-## Best Model
+## :fontawesome-solid-star: Best Model
 
 I choose to pick the model with the best value of **F1 score**. This model could be more balanced between all others trained, and for not overfitting during the training.
 
