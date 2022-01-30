@@ -12,8 +12,9 @@ Here is possible to find all the code of EDAs and classes about training and pre
 
 1. `mkdir fraud-detection`
 2. `cd fraud-detection`
-3. `pip install pipenv`
-4. `pipenv shell`
-5. `pipenv install`
+3. `git clone https://github.com/LucianoBatista/fraud-detection-classifier .`
+4. `pip install pipenv`
+5. `pipenv shell`
+6. `pipenv install`
 
 After these steps you're good to go!
