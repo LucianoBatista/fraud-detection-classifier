@@ -3,6 +3,8 @@ theme:
   name: material
   font:
     text: Roboto
+  features:
+    - content.code.annotate
 markdown_extensions:
   - meta
   - attr_list
