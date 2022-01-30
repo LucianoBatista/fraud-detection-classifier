@@ -1,24 +1,19 @@
 # Tera Third Challenge
 
-About do projeto!
+This is a repository with all development code of the model of the project. The Challenge is about Fraud Detection, and you can find all the explanation of principal insights and all the steps of training and API development on the online documentation:
 
+- https://lucianobatista.github.io/fraud-detection-classifier/
 
-# Data Dictionary
+The documentation was developed using Mkdocs and deployed with github pages.
 
-- **step** (Passo): representa o total de horas transcorrido desde o início da simulação. Esta feature vai variar entre 1 e 744 (30 dias);
-- **type** (Tipo): tipo de transação (depósito, saque, débito, pagamento e transferência);
-- **amount** (Quantia): total que foi transacionado;
-- **nameOrig** (ClienteOrigem): cliente que iniciou a transação
-- **oldbalanceOrg** (SaldoInicialOrigem): saldo da conta de origem antes da transação;
-- **newbalanceOrig** (SaldoFinalOrigem): saldo da conta de origem após a transação;
-- **nameDest** (ClienteDestino): cliente de destino da transação;
-- **oldbalanceDest** (SaldoInicialDestino): saldo da conta de destino antes da transação;
-- **newbalanceDest** (SaldoFinalDestino): saldo da conta de destino após a transação;
-- **isFraud** (ÉFraude): flag que define se a transação é fraudulenta ou não. Nesta simulação o objetivo da fraude é assumir a conta do usuário, esvaziá-la transferindo para outra conta e então sacando o dinheiro.
-- **isFlaggedFraud** (SinalizadaComoFraude): automaticamente marcadas pelo banco como fraude por tentarem transferir mais de 200.000 em uma única transação.
+Here is possible to find all the code of EDAs and classes about training and pre-processing steps. All you need to do is to clone the repo, activate the environment and install the dependencies. Or, follow the instructions down below.
 
-# Doubts
+# Using this repo
 
-- Dados simulados, mas compreendem de fato a realidade? Detalhes dessa simulação?
-- SMOTEENN 1 dia rodando e nada!
+1. `mkdir fraud-detection`
+2. `cd fraud-detection`
+3. `pip install pipenv`
+4. `pipenv shell`
+5. `pipenv install`
 
+After these steps you're good to go!
